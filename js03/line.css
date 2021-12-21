@@ -1,0 +1,84 @@
+#fake{
+    width: 600px;
+    height: 700px;
+    background-color: bisque;
+    position: relative;
+}
+
+h1{
+    width: 600px;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+    background-color: aquamarine; 
+}
+
+h2{
+    width: 600px;
+    height: ;
+    object-fit: cover; /*これで画像を枠に合わせて切り取り*/
+    display: flex;
+    background-color: ;
+}
+
+#aite{
+    white-space: pre;
+    text-align: left;
+    list-style-type: none; /*リストの点々をなくす*/
+    border-radius: 30px 30px; /*丸角*/
+    background-color: #AAAAAA;
+}
+
+#me{
+    width: auto;
+    height: auto;
+    font-size: 20px;
+    list-style-type: none; /*リストの点々をなくす*/
+    border-radius: 30px 30px; /*丸角*/
+    white-space: pre;
+    text-align: right;
+    background-color: #AAAAAA;
+    margin: 10px 10px;
+
+}
+
+footer{
+    width: 600px;
+    height: 45px;
+    background-color: turquoise;
+    display: flex;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+
+}
+
+#kinou{
+
+}
+
+#camera{
+    margin-left: 7px;
+}
+
+
+#gazou{
+    margin-left: 7px;
+}
+
+
+#text{
+    width: 400px;
+    height: auto;
+    font-size: 25px;
+    background-color: white;
+    border-radius: 50px 50px; /*丸角*/
+    margin-left: 7px;
+    margin:3px;
+    padding:5px 9px;
+
+}
+
+#voice{
+    margin-left: 7px
+}
