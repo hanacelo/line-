@@ -72,39 +72,11 @@
             //chatにユニークキーをつけてオブジェクトデータを登録
             //setでデータを送れる（塊で送ることが大事）
             set(newPostRef,msg);
-        });
 
-        //最初のデータ取得＆onSnapshotでリアルタイムにデータを取得
-        onChildAdded(dbRef,function(data){
-                const msg = data.val();
-                const key  = data.key;
-                
-                //表示テキスト
-                let h = '<p>';
-                    h += msg.username; //この辺りはテンプレートリテラルで書き直せるらしい
-                    h += '<br>';
-                    h += msg.text;
-                    h += '</p>';
-                    $("#me").append(h);    //outputに追加  
-                
-            });
-
-            //#nameの名前が山田花子以外だったら、aiteに記述
-            $('#send').on('click',function(){
-
-                    //一旦usernameとtextを書き換え
-                    const username = $('#username').val();
-                    const text = $('#text').val();
-
-                    //tegamiに入るかぎ？を作る
-                    const tegami ={
+            const tegami ={
                         username:$('#username').val(),
                         text:$('#text').val(),
                     };
-
-                    set(newPostRef,tegami);
-                });
-
 
                 //リアルタイムでデータ取得
                 onChildAdded(dbRef,function(data){
@@ -123,6 +95,24 @@
                     $("#aite").append();
                 }
                 });
+
+        });
+
+        //最初のデータ取得＆onSnapshotでリアルタイムにデータを取得
+        onChildAdded(dbRef,function(data){
+                const msg = data.val();
+                const key  = data.key;
+                
+                //表示テキスト
+                let h = '<p>';
+                    h += msg.username; //この辺りはテンプレートリテラルで書き直せるらしい
+                    h += '<br>';
+                    h += msg.text;
+                    h += '</p>';
+                    $("#me").append(h);    //outputに追加  
+                
+            });
+
 
             
         </script>
