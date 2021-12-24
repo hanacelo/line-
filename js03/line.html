@@ -10,21 +10,121 @@
 <body>
     <div id="fake">
 
-        <h1><!--ここに自分の名前-->ゴー☆ジャス</h1>
-        <h2 src="images/gorgeous.png"><!--背景画面？-->
-            <li id="aite"><!--ここ相手のテキストボックス？--></li>
-            <li id="me"><!--ここ自分ののテキストボックス？--></li>        
-        </h2>
+        <h1><!--ここに自分の名前-->山田花子</h1>
+        <div class=”line__contents scroll>
+            <div id="aite"><!--ここ相手のテキストボックス？--></div>
+            <div id="me"><!--ここ自分ののテキストボックス？--></div>    
+        </div>
+                
         <footer> <!--テキストボックスとか！-->
-            <div id="kinou"><img src="images/earth.png" alt="地球" width="40px" height="40px"></div>
-            <div id="camera"><img src="images/star.png" alt="星" width="40px" height="40px"></div>
-            <div id="gazou"><img src="images/hut.png" alt="海賊帽" width="40px" height="40px"></div>
+            <input type="text"  id="username"></input>
             <input type="text" id="text"></input>
-            <div id="voice"><img src="images/scull.png" alt="ドクロ" width="45px" height="40px"></div>
+            <button id ="send">ボタン</button>
         </footer>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="line.js"></script>
+
+    <!--以下firebase-->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+
+        //追加１
+        import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved } 
+        from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC7E21yKoD48HtYYwdyusTFed16BsSmcek",
+          authDomain: "gsdemo-82d24.firebaseapp.com",
+          projectId: "gsdemo-82d24",
+          storageBucket: "gsdemo-82d24.appspot.com",
+          messagingSenderId: "57539675220",
+          appId: "1:57539675220:web:3b88601c2014d13775d9c1"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        //追加２
+        const db  = getDatabase(app); //RealtimeDBに接続
+        const dbRef = ref(db,"chat"); //RealtimeDB内の"chat"を使う
+
+        //送信処理
+        $('#send').on('click',function(){
+
+            const username = $('#username').val();
+            const text = $('#text').val();
+            // alert(uname + text);
+
+            //データ登録（firebaseに）
+            const msg = {
+                username:$('#username').val(),
+                text:$('#text').val(),
+            }
+
+            //ユニークKEYを生成 = 絶対に被らない番号みたいなもの
+            const newPostRef = push(dbRef);
+            //chatにユニークキーをつけてオブジェクトデータを登録
+            //setでデータを送れる（塊で送ることが大事）
+            set(newPostRef,msg);
+        });
+
+        //最初のデータ取得＆onSnapshotでリアルタイムにデータを取得
+        onChildAdded(dbRef,function(data){
+                const msg = data.val();
+                const key  = data.key;
+                
+                //表示テキスト
+                let h = '<p>';
+                    h += msg.username; //この辺りはテンプレートリテラルで書き直せるらしい
+                    h += '<br>';
+                    h += msg.text;
+                    h += '</p>';
+                    $("#me").append(h);    //outputに追加  
+                
+            });
+
+            //#nameの名前が山田花子以外だったら、aiteに記述
+            $('#send').on('click',function(){
+
+                    //一旦usernameとtextを書き換え
+                    const username = $('#username').val();
+                    const text = $('#text').val();
+
+                    //tegamiに入るかぎ？を作る
+                    const tegami ={
+                        username:$('#username').val(),
+                        text:$('#text').val(),
+                    };
+
+                    set(newPostRef,msg);
+                });
+
+
+                //リアルタイムでデータ取得
+                onChildAdded(dbRef,function(data){
+                const tegami = data.val();
+                const key  = data.key;
+                
+                //表示テキスト
+                if(username != "山田花子"){
+                let h = '<p>';
+                    h += tegami.username; //この辺りはテンプレートリテラルで書き直せるらしい
+                    h += '<br>';
+                    h += tegami.text;
+                    h += '</p>';
+                    $("#aite").append(h);
+                }else if(username = "山田花子"){
+                    $("#aite").append();
+                }
+                });
+
+            
+        </script>
 </body>
 </html>

@@ -22,15 +22,18 @@ h2{
 }
 
 #aite{
+    width: 300px;
+    height: auto;
     white-space: pre;
-    text-align: left;
     list-style-type: none; /*リストの点々をなくす*/
     border-radius: 30px 30px; /*丸角*/
     background-color: #AAAAAA;
+    margin-right: auto;
+    padding-left: 7px;
 }
 
 #me{
-    width: auto;
+    width: 300px;
     height: auto;
     font-size: 20px;
     list-style-type: none; /*リストの点々をなくす*/
@@ -38,7 +41,9 @@ h2{
     white-space: pre;
     text-align: right;
     background-color: #AAAAAA;
-    margin: 10px 10px;
+    margin-top: 10px ;
+    margin-left: auto;
+    padding-right: 7px;
 
 }
 
@@ -68,11 +73,23 @@ footer{
 
 
 #text{
-    width: 400px;
+    width: 300px;
     height: auto;
     font-size: 25px;
     background-color: white;
     border-radius: 50px 50px; /*丸角*/
+    margin-left: 7px;
+    margin:3px;
+    padding:5px 9px;
+
+}
+
+#name{
+    width: 50px;
+    height: auto;
+    font-size: 25px;
+    border-radius: 50px 50px; /*丸角*/
+    color: black;
     margin-left: 7px;
     margin:3px;
     padding:5px 9px;
