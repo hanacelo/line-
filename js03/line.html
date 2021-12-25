@@ -11,14 +11,14 @@
     <div id="fake">
 
         <h1><!--ここに自分の名前-->山田花子</h1>
-        <div class=”line__contents scroll>
+        <div class=”line__contents scroll id="gamen">
             <div id="aite"><!--ここ相手のテキストボックス？--></div>
-            <div id="me"><!--ここ自分ののテキストボックス？--></div>    
+            <div id="me"><!--ここ自分のテキストボックス？--></div>    
         </div>
                 
         <footer> <!--テキストボックスとか！-->
-            <input type="text"  id="username"></input>
-            <input type="text" id="text"></input>
+            <input type="text"  id="username"  placeholder="山田花子"></input>
+            <input type="text" id="text" placeholder="テキストを入力"></input>
             <button id ="send">ボタン</button>
         </footer>
     </div>
@@ -59,13 +59,12 @@
 
             const username = $('#username').val();
             const text = $('#text').val();
-            // alert(uname + text);
 
             //データ登録（firebaseに）
             const msg = {
                 username:$('#username').val(),
                 text:$('#text').val(),
-            }
+            };
 
             //ユニークKEYを生成 = 絶対に被らない番号みたいなもの
             const newPostRef = push(dbRef);
@@ -73,29 +72,7 @@
             //setでデータを送れる（塊で送ることが大事）
             set(newPostRef,msg);
 
-            const tegami ={
-                        username:$('#username').val(),
-                        text:$('#text').val(),
-                    };
-
-                //リアルタイムでデータ取得
-                onChildAdded(dbRef,function(data){
-                const tegami = data.val();
-                const key  = data.key;
-                
-                //表示テキスト
-                if(username != "山田花子"){
-                let h = '<p>';
-                    h += tegami.username; //この辺りはテンプレートリテラルで書き直せるらしい
-                    h += '<br>';
-                    h += tegami.text;
-                    h += '</p>';
-                    $("#aite").append(h);
-                }else if(username = "山田花子"){
-                    $("#aite").append();
-                }
-                });
-
+        
         });
 
         //最初のデータ取得＆onSnapshotでリアルタイムにデータを取得
@@ -104,14 +81,30 @@
                 const key  = data.key;
                 
                 //表示テキスト
+                if(msg.username !== "山田花子"){
                 let h = '<p>';
-                    h += msg.username; //この辺りはテンプレートリテラルで書き直せるらしい
+                    h += msg.username; 
                     h += '<br>';
                     h += msg.text;
                     h += '</p>';
-                    $("#me").append(h);    //outputに追加  
+                    $("#aite").append(h); 
+                }else if(msg.username === "山田花子"){
+                    let u = '<p>';
+                    u += msg.username;
+                    u += '<br>';
+                    u += msg.text;
+                    u += '</p>';
+                    $("#me").append(u);
+                };
                 
+                
+
+                //outputに追加  
+                
+                    
             });
+
+            
 
 
             
